@@ -7,8 +7,10 @@ import TextArea from "../UI/TextArea";
 import toast from "react-hot-toast";
 import TagInput from "../UI/TagInput";
 import Icon from "../UI/Icon";
+import useProject from "../../Hooks/useProject";
 
 const Upload = () => {
+  const {uploadProject} = useProject()
   const [tools, setTools] = useState([]);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -33,7 +35,7 @@ const Upload = () => {
         return;
       }
 
-      setImage(file); // Set image if validation passes
+      setImage(file); 
     }
   };
 
@@ -47,14 +49,17 @@ const Upload = () => {
     else if (!tools) toast.error("Project tools are required!");
     else if (!image) toast.error("Project image is required!");
     else {
-      console.log({
-        title,
-        description,
-        link,
-        tools,
-        image,
-      });
-      toast.success("Project added successfully!");
+      toast.promise(
+        uploadProject(title, description, link, tools, image),
+        {
+          loading: "Uploading Project...",
+          success: "Project Uploaded!",
+          error: (err) => {
+            console.log("Upload Project:", err);
+            return "Failed to Upload Project"
+          }
+        }
+      )
     }
   };
 

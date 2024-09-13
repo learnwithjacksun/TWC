@@ -64,11 +64,15 @@ i, span{
   @apply relative before:absolute before:bottom-0 before:h-[1px] before:w-1/2 before:bg-line before:left-1/2 before:-translate-x-1/2
 }
 
+.role{
+  @apply font-medium text-xs bg-green-500/10 px-2 rounded-full border border-green-500 text-green-500
+}
+
 .custom-clamp {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-line-clamp: 2; /* Limits text to 2 lines */
+  -webkit-line-clamp: 2;
   line-clamp: 2;
 }
 

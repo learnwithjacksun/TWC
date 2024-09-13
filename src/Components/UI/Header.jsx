@@ -3,8 +3,9 @@ import Icon from "./Icon";
 import Brand from "./Brand";
 import useMenu from "../../Hooks/useMenu";
 import useAuth from "../../Hooks/useAuth";
+import useTheme from "../../Hooks/useTheme";
 const Header = () => {
-const {toggleMenu}= useMenu()
+  const { toggleMenu } = useMenu();
 
   const { pathname } = useLocation();
 
@@ -13,7 +14,8 @@ const {toggleMenu}= useMenu()
   const linkText = isRegisterPage ? "Login" : "Sign Up";
   const linkIcon = isRegisterPage ? "login" : "person_add";
 
-const {user} = useAuth()
+  const { user, data } = useAuth();
+  const { darkMode, toggleDarkMode } = useTheme();
   return (
     <>
       <header className="line">
@@ -22,10 +24,11 @@ const {user} = useAuth()
 
           <div className="flex items-center md:gap-6 gap-2">
             <div
+              onClick={toggleDarkMode}
               className="flex-center cursor-default h-11 w-11 rounded-full"
             >
               <Icon styles="text-sub">
-                dark_mode
+                {darkMode ? "dark_mode" : "light_mode"}
               </Icon>
             </div>
 
@@ -41,6 +44,18 @@ const {user} = useAuth()
               </div>
             )}
 
+            {user && (
+              <Link to="/profile" className="h-10 w-10 rounded-full bg-blue-400 overflow-hidden">
+                <img
+                  src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
+                    data && data?.gender
+                  }`}
+                  alt="Avatar"
+                  className="w-full object-cover"
+                />
+              </Link>
+            )}
+
             <div
               onClick={toggleMenu}
               className="flex-center bg-lighter cursor-default h-11 w-11 rounded-full"
@@ -50,7 +65,6 @@ const {user} = useAuth()
           </div>
         </nav>
       </header>
-
     </>
   );
 };

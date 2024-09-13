@@ -6,18 +6,21 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import TextArea from "../UI/TextArea";
-import { databases } from "../../Lib/appwriteConfig"
+import { databases } from "../../Lib/appwriteConfig";
 import ImageInput from "../UI/ImageInput";
 import Modal from "../UI/Modal";
+import Grid from "../UI/Grid";
+import useProject from "../../Hooks/useProject";
+import Card from "../UI/Card";
 
 const Profile = () => {
   const { user, data } = useAuth();
+  const { userProjects, deleteUserProject } = useProject();
 
-  
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal((prev) => !prev);
 
-  const [bio, setBio] = useState(data?.bio); 
+  const [bio, setBio] = useState(data?.bio);
   const [image, setImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -43,10 +46,23 @@ const Profile = () => {
       }
     );
 
-    toggleModal()
+    toggleModal();
     data.bio = bio;
-   
   };
+
+  const handleDelete = ()=>{
+    toast.promise(
+      deleteUserProject(),
+      {
+        loading: "Deleting Project...",
+        success: "Project deleted successfully!",
+        error: (err) => {
+          console.log(err);
+          return "Failed to delete project.";
+        }
+      }
+)
+  }
   return (
     <>
       <Layout>
@@ -60,7 +76,7 @@ const Profile = () => {
                 <img
                   src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
                     data && data?.gender
-                  }`} // Replace with user's actual avatar if available
+                  }`}
                   alt="Avatar"
                   className="w-full object-cover rounded-full"
                 />
@@ -87,8 +103,9 @@ const Profile = () => {
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-sm font-sora">About Me:</h3>
                 <button
-                onClick={toggleModal}
-                  className="btn-primary rounded px-2 py-1">
+                  onClick={toggleModal}
+                  className="btn-primary rounded px-2 py-1"
+                >
                   <Icon styles="text-[1.4em]">edit</Icon>
                   <span>Edit Bio</span>
                 </button>
@@ -97,24 +114,27 @@ const Profile = () => {
                 {data?.bio || "No bio available."}
               </p>
             </div>
-
-            {/* My project */}
-            <div className="my-6">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-base font-sora">
-                  My Projects:
-                </h3>
-                <Link to="/upload" className="btn-primary rounded p-3">
-                  <Icon styles="text-[1.4em]">add</Icon>
-                  <span>Add Project</span>
-                </Link>
-              </div>
-              <div className="my-4"></div>
+          </div>
+          {/* My project */}
+          <div className="my-6">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-base font-sora">
+                My Projects:
+              </h3>
+              <Link to="/upload" className="btn-primary rounded p-3">
+                <Icon styles="text-[1.4em]">add</Icon>
+                <span>Add Project</span>
+              </Link>
             </div>
+
+            <Grid>
+              {userProjects.map((userProject) => (
+                <Card key={userProject.$id} {...userProject} date={userProject.$createdAt} handleDelete={handleDelete} />
+              ))}
+            </Grid>
           </div>
         </div>
       </Layout>
-
 
       {modal && (
         <Modal toggleModal={toggleModal} title="Edit Profile">
@@ -124,7 +144,9 @@ const Profile = () => {
                 <div className="border-dashed bg-secondary border-line border flex-center p-6 rounded-lg">
                   <div className="flex flex-col items-center">
                     <Icon styles="text-sub">add_a_photo</Icon>
-                    <div className="font-semibold text-sm text-sub">Profile Image</div>
+                    <div className="font-semibold text-sm text-sub">
+                      Profile Image
+                    </div>
                     {image?.name && (
                       <div className="font-semibold text-sm bg-lighter px-6 py-2 rounded-full border border-line mt-2">
                         {image?.name}
@@ -150,7 +172,10 @@ const Profile = () => {
                 handleChange={(e) => setBio(e.target.value)}
               />
               <div className="flex justify-end">
-                <button onClick={updateBio} className="btn-primary mt-2 px-2 h-8 rounded">
+                <button
+                  onClick={updateBio}
+                  className="btn-primary mt-2 px-2 h-8 rounded"
+                >
                   Update Bio
                 </button>
               </div>
