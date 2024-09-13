@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Sora:wght@100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --primary: #333;
+  --secondary: #f7f8f9;
+  --main: #444;
+  --sub: #888;
+  --line: #eee;
+  --light: #fefefe;
+  --lighter: #f7f8f9;
+  --mid: #f1f1f1;
+  --invert: #fefefe;
+}
+
+.dark{
+  --primary: #fefefe;
+  --secondary: #121212;
+  --main: #fefefe;
+  --sub: #9d9c9c;
+  --line: #555;
+  --light: #212121;
+  --lighter: #313131;
+  --mid: #212121;
+  --invert: #333;
+}
+
+*{
+  @apply outline-none font-sans text-main cursor-default
+}
+
+body{
+  @apply bg-light duration-500
+}
+
+.flex-center{
+  @apply flex justify-center items-center
+}
+
+.main {
+  @apply max-w-[90%] 2xl:max-w-[1280px] mx-auto;
+}
+
+.layout {
+  @apply max-w-full md:max-w-[700px] mx-auto;
+}
+
+.btn{
+  @apply font-semibold text-sm flex-center gap-2 active:brightness-90 duration-200
+}
+
+.btn-primary{
+  @apply bg-primary text-invert btn
+}
+
+i, span{
+  @apply text-inherit
+}
+
+.line{
+  @apply relative before:absolute before:bottom-0 before:h-[1px] before:w-1/2 before:bg-line before:left-1/2 before:-translate-x-1/2
+}
+
+.custom-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Limits text to 2 lines */
+  line-clamp: 2;
+}
+
+.gradient-text{
+  @apply bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent
+}
+
+.text-display {
+  white-space: pre-wrap;
+}
