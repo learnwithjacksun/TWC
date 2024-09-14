@@ -27,7 +27,7 @@ const Card = ({
       {user?.$id === userid && (
         <div
           onClick={()=> handleDelete(id)} 
-          className="absolute z-20 cursor-pointer bg-red-600 text-white right-2 top-2 h-9 w-9 flex-center rounded-lg"
+          className="absolute cursor-pointer bg-red-600 text-white right-2 top-2 h-9 w-9 flex-center rounded-lg"
         >
           <Icon styles="text-[1.3em]">delete</Icon>
         </div>

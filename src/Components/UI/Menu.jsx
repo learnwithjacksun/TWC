@@ -1,32 +1,28 @@
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
-import Prop from 'prop-types'
+import Prop from "prop-types";
 import { navlinks } from "../../Constants/data";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
 const Menu = ({ toggleMenu }) => {
-    
-    const { user, logout } = useAuth()
-    
-    const handleLogout = () => {
-        toast.promise(
-            logout(),
-            {
-                loading: "Logging Out...",
-                success: "Logged Out!",
-                error: (err) => {
-                    console.log(err);
-                    return "Failed!"
-                }
-            }
-        )
-        toggleMenu()
-  }
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    toast.promise(logout(), {
+      loading: "Logging Out...",
+      success: "Logged Out!",
+      error: (err) => {
+        console.log(err);
+        return "Failed!";
+      },
+    });
+    toggleMenu();
+  };
   const menuVars = {
     initial: {
-      scaleX:0,
+      scaleX: 0,
       opacity: 0,
     },
     animate: {
@@ -38,7 +34,6 @@ const Menu = ({ toggleMenu }) => {
       opacity: 0,
     },
   };
-  
 
   return (
     <>
@@ -48,12 +43,12 @@ const Menu = ({ toggleMenu }) => {
           className="absolute inset-0 bg-[rgba(0,0,0,0.5)] -z-10"
         ></div>
         <motion.div
-          style={{ transformOrigin: "right" }}
-          variants={menuVars}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="z-10 bg-light min-h-screen w-[70%] md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line">
+          style={{transformOrigin: "right"}}
+          animate={menuVars.animate}
+          initial={menuVars.initial}
+          exit={menuVars.exit}
+          className="z-10 bg-light min-h-screen w-[70%] md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line"
+        >
           <div className="flex justify-end">
             <div
               onClick={toggleMenu}
@@ -116,7 +111,7 @@ const Menu = ({ toggleMenu }) => {
 };
 
 Menu.propTypes = {
-    toggleMenu: Prop.func
-}
+  toggleMenu: Prop.func,
+};
 
 export default Menu;
