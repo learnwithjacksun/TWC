@@ -6,17 +6,19 @@ import PageTransition from "../UI/PageTransition";
 import toast from "react-hot-toast";
 import useChats from "../../Hooks/useChats";
 import useAuth from "../../Hooks/useAuth";
+import Modal from "../UI/Modal";
+import { Link } from "react-router-dom";
 
 const Chatroom = () => {
   const { user } = useAuth();
   const { sendMessage, chats, deleteMessage } = useChats();
   const [message, setMessage] = useState("");
-  const chatEndRef = useRef(null); 
-
+  const chatEndRef = useRef(null);
   const handleSumbit = (e) => {
     e.preventDefault();
 
-    if (!message) toast.error("Enter message first!");
+    if (!message)toast.error("Enter message first!");
+    else if (!user) setModal((prev) => !prev);
     else {
       sendMessage(message);
       setMessage("");
@@ -24,19 +26,18 @@ const Chatroom = () => {
   };
 
   const handleDelete = (id) => {
-    toast.promise(
-      deleteMessage(id),
-      {
-        loading: "Deleting message...",
-        success: "Message deleted!",
-        error: "Failed to delete message!",
-      }
-    );
+    toast.promise(deleteMessage(id), {
+      loading: "Deleting message...",
+      success: "Message deleted!",
+      error: "Failed to delete message!",
+    });
   };
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chats]); 
+  }, [chats]);
+
+  const [modal, setModal] = useState(false);
 
   return (
     <>
@@ -81,12 +82,12 @@ const Chatroom = () => {
                             : "other-message-details"
                         }`}
                       >
-                        {chat?.name} - {new Date(chat?.$createdAt).toLocaleString()}
+                        {chat?.name} -{" "}
+                        {new Date(chat?.$createdAt).toLocaleString()}
                       </div>
                     </div>
                   </div>
                 ))}
-
 
                 <div ref={chatEndRef}></div>
               </div>
@@ -113,6 +114,21 @@ const Chatroom = () => {
           </div>
         </Layout>
       </PageTransition>
+
+      {modal && (
+        <Modal toggleModal={() => setModal((prev) => !prev)} title="Hold on!🤚">
+          <div>
+            <p>You need to login first! 🤷‍♂️</p>
+            <Link
+              to="/profile"
+              className="btn-primary rounded-lg w-1/2 mt-4 h-9"
+            >
+              <span>Login Now</span>
+              <Icon>arrow_forward</Icon>
+            </Link>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
