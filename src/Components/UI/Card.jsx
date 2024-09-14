@@ -52,7 +52,7 @@ const Card = ({
         </div>
         <div className="flex border-t border-line py-2 ms-0 mt-auto">
           <div className="flex-1">
-            <p className="font-medium text-sm">
+            <p className="font-medium text-sm mb-1">
               {name}&nbsp;<span className="role">{role}</span>
             </p>
             <p className="text-xs text-sub">{formatDate(date)}</p>
