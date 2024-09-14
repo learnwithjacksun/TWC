@@ -48,7 +48,7 @@ const Header = () => {
               <Link to="/profile" className="h-10 w-10 rounded-full bg-blue-400 overflow-hidden">
                 <img
                   src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
-                    data && data?.gender
+                    data && data?.name
                   }`}
                   alt="Avatar"
                   className="w-full object-cover"

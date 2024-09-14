@@ -9,23 +9,29 @@ import { formatDate } from "../../Utils/dateFormat";
 
 
 const Preview = () => {
-  const { id } = useParams(); // Get the project id from the URL
-  const { projects } = useProject(); // Fetch all projects
-  const [project, setProject] = useState(null); // State to store the specific project
+  const { id } = useParams(); 
+  const { projects } = useProject();
+  const [project, setProject] = useState(null); 
 
   useEffect(() => {
     if (projects) {
-      const foundProject = projects.find((project) => project.$id === id);
-      setProject(foundProject); // Set the found project in state
+      const foundProject = projects.find((project) => project.userid === id);
+      setProject(foundProject); 
     }
-  }, [projects, id]); // Re-run when `projects` or `id` changes
+  }, [projects, id]); 
 
   if (!projects) {
-    return <div>Loading projects...</div>; // Show loading message while projects are being fetched
+    return (
+      <>
+        <Layout>
+        <div className="main">Fetching project...</div>;
+      </Layout>
+      </>
+    ) 
   }
 
   if (!project) {
-    return <div>Project not found!</div>; // Show this if project with the given id is not found
+    return <div>Project not found!</div>;
   }
 
   return (

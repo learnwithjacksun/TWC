@@ -60,7 +60,7 @@ const Menu = ({ toggleMenu }) => {
             ))}
           </ul>
 
-          <div className="flex flex-col gap-2 ms-0 mt-auto">
+          <div className="flex flex-col gap-2 ms-0 mt-auto mb-10">
             {!user && (
               <Link
                 to="/register"

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Heading from "../UI/Heading";
 import Layout from "../UI/Layout";
 import Input from "../UI/Input";
@@ -44,12 +44,13 @@ const Login = () => {
   };
 
   const [modal, setModal] = useState(false);
-
+const navigate = useNavigate()
   useEffect(() => {
     if (user) {
       setModal(true);
+      navigate("/profile")
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <>

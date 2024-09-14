@@ -75,7 +75,7 @@ const Profile = () => {
               <div className="h-32 w-32 overflow-hidden rounded-full p-2 bg-blue-400 shadow-lg">
                 <img
                   src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
-                    data && data?.gender
+                    data && data?.name
                   }`}
                   alt="Avatar"
                   className="w-full object-cover rounded-full"
@@ -127,7 +127,14 @@ const Profile = () => {
               </Link>
             </div>
 
+            {userProjects.length === 0 && (
+                <div className="text-center text-sub mt-8">
+                  <Icon styles="text-[3em]">hourglass_disabled</Icon>
+                  <p className="text-sub">You don&apos;t have any project yet!</p>
+                </div>
+              )}
             <Grid>
+             
               {userProjects.map((userProject) => (
                 <Card key={userProject.$id} {...userProject} date={userProject.$createdAt} handleDelete={handleDelete} />
               ))}

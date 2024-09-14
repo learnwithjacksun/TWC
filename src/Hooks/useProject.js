@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { databases, storage } from "../Lib/appwriteConfig";
 import useAuth from "./useAuth";
 import { ID, Query } from "appwrite";
+import { useNavigate } from "react-router-dom";
 
 
 const useProject = () => {
     const { user, data } = useAuth()
-    const [projects, setProjects] = useState(null);
+    const [projects, setProjects] = useState([]);
     const [userProjects, setUserProjects] = useState([]);
+    const navigate = useNavigate()
 
     const uploadProject = async (title, description, link, tools, image) => {
         try {
@@ -18,7 +20,7 @@ const useProject = () => {
             await databases.createDocument(
                 "twcdb",
                 "projects",
-                user?.$id, {
+                ID.unique(), {
                 name: data.name,
                 role: data.role,
                 title,
@@ -29,6 +31,7 @@ const useProject = () => {
                 userid: user?.$id
             }
             )
+            navigate("/projects")
         } catch (error) {
             console.log("Upload Project:", error);
         }
@@ -66,17 +69,16 @@ const useProject = () => {
         fetchUserProjects();
     }, [user?.$id])
 
-    const deleteUserProject = async () => {
+    const deleteUserProject = async (projectid) => {
+        console.log("clicked");
         try {
-            await databases.deleteDocument(
-                "twcdb",
-                "projects",
-                userProjects.$id
-            )
+            await databases.deleteDocument("twcdb", "projects", projectid);
+            getProjects()
         } catch (error) {
             console.log("Delete User Project:", error);
         }
-    }
+    };
+    
 
 
 
