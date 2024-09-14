@@ -85,21 +85,21 @@ i, span{
 }
 
 .user-message-box{
-  @apply flex gap-1 justify-end my-2 items-center
+  @apply flex gap-1 justify-end items-center
 }
 .user-message-body{
-  @apply border border-line p-2 text-sm font-medium rounded-tl-xl rounded-bl-xl
+  @apply border border-line p-2 text-sm font-medium rounded-tl-xl rounded-bl-xl rounded-md
 }
 .user-message-details{
   @apply text-xs text-sub text-end
 }
 
 .other-message-box{
-  @apply flex gap-1 justify-start my-12 items-center
+  @apply flex gap-1 justify-start items-center
 }
 .other-message-body{
-  @apply bg-lighter p-2 text-sm font-medium rounded-tr-xl rounded-br-xl
+  @apply bg-lighter p-2 text-sm font-medium rounded-tr-xl rounded-br-xl rounded-md
 }
 .other-message-details{
-  @apply text-xs text-sub text-start
+  @apply text-xs text-sub text-start font-medium
 }
