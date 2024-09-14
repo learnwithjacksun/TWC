@@ -22,7 +22,7 @@ export const navlinks = [
     },
     {
         label: "Chat Room",
-        url: "/chats",
+        url: "/chatroom",
         icon: "chat"
     },
     {

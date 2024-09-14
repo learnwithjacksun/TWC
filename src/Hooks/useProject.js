@@ -67,7 +67,7 @@ const useProject = () => {
         };
         getProjects()
         fetchUserProjects();
-    }, [user?.$id, userProjects])
+    }, [user?.$id, projects])
 
     const deleteUserProject = async (projectid) => {
         try {

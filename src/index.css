@@ -83,3 +83,23 @@ i, span{
 .text-display {
   white-space: pre-wrap;
 }
+
+.user-message-box{
+  @apply flex gap-1 justify-end my-2 items-center
+}
+.user-message-body{
+  @apply border border-line p-2 text-sm font-medium rounded-tl-xl rounded-bl-xl
+}
+.user-message-details{
+  @apply text-xs text-sub text-end
+}
+
+.other-message-box{
+  @apply flex gap-1 justify-start my-12 items-center
+}
+.other-message-body{
+  @apply bg-lighter p-2 text-sm font-medium rounded-tr-xl rounded-br-xl
+}
+.other-message-details{
+  @apply text-xs text-sub text-start
+}

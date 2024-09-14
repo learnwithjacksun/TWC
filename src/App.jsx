@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import {
+  Chatroom,
   Home,
   Login,
   Notfound,
@@ -27,6 +28,7 @@ const App = () => {
               <Route index element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/chatroom" element={<Chatroom />} />
               <Route path="*" element={<Notfound />} />
               <Route element={<ProtectedRoutes />}>
                 <Route path="/profile" element={<Profile />} />
