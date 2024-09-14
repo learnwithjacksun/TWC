@@ -24,13 +24,13 @@ const Projects = () => {
         {projects.length === 0 && (
                 <div className="text-center text-sub">
                   <Icon styles="text-[3em]">hourglass_disabled</Icon>
-                  <p className="text-sub">There are no projects yet!</p>
+                  <p className="text-sub text-sm">There are no projects yet!</p>
                 </div>
               )}
         {!projects && (
                 <div className="text-center text-sub">
                   <Icon styles="text-[3em]">pending</Icon>
-                  <p className="text-sub">Fetching...</p>
+                  <p className="text-sub text-sm">Fetching...</p>
                 </div>
               )}
         <Grid>

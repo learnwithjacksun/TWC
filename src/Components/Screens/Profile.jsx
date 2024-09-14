@@ -130,7 +130,7 @@ const Profile = () => {
             {userProjects.length === 0 && (
                 <div className="text-center text-sub mt-8">
                   <Icon styles="text-[3em]">hourglass_disabled</Icon>
-                  <p className="text-sub">You don&apos;t have any project yet!</p>
+                  <p className="text-sub text-sm">You don&apos;t have any project yet!</p>
                 </div>
               )}
             <Grid>
