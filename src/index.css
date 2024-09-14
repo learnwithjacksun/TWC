@@ -85,7 +85,7 @@ i, span{
 }
 
 .user-message-box{
-  @apply flex gap-1 justify-end my-2 items-center
+  @apply flex gap-1 justify-end mb-12 items-center
 }
 .user-message-body{
   @apply border border-line p-2 text-sm font-medium rounded-tl-xl rounded-bl-xl
@@ -95,7 +95,7 @@ i, span{
 }
 
 .other-message-box{
-  @apply flex gap-1 justify-start my-12 items-center
+  @apply flex gap-1 justify-start mb-12 items-center
 }
 .other-message-body{
   @apply bg-lighter p-2 text-sm font-medium rounded-tr-xl rounded-br-xl
