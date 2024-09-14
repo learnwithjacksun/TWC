@@ -5,7 +5,6 @@ import Layout from "../UI/Layout";
 import PageTransition from "../UI/PageTransition";
 import toast from "react-hot-toast";
 import useChats from "../../Hooks/useChats";
-import { formatDate } from "../../Utils/dateFormat";
 import useAuth from "../../Hooks/useAuth";
 
 const Chatroom = () => {
@@ -82,7 +81,7 @@ const Chatroom = () => {
                             : "other-message-details"
                         }`}
                       >
-                        {chat?.name} - {formatDate(chat?.$createdAt)}
+                        {chat?.name} - {new Date(chat?.$createdAt).toLocaleString()}
                       </div>
                     </div>
                   </div>
