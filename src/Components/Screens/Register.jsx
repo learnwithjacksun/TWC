@@ -6,9 +6,10 @@ import Select from "../UI/Select";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import PageTransition from "../UI/PageTransition";
 
 const Register = () => {
-  const {register} = useAuth()
+  const { register } = useAuth();
   const role = [
     { value: "developer", label: "Developer" },
     { value: "graphics designer", label: "Graphics Designer" },
@@ -63,93 +64,95 @@ const Register = () => {
           loading: "Creating User...",
           success: "Account Created!",
           error: (err) => {
-            return `Failed: ${err.message}`
-          }
+            return `Failed: ${err.message}`;
+          },
         }
-      )
+      );
     }
   };
   return (
     <>
-      <Layout>
-        <div className="main">
-          <Heading
-            title="Create Account"
-            subtitle="To contribute to the community, sign up first!"
-          />
-
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-4 w-full md:w-[480px] mx-auto my-6"
-          >
-            {/* Tech Name Input */}
-            <Input
-              id="name"
-              label="Tech Name"
-              type="text"
-              placeholder="Enter your tech name..."
-              bg_color="bg-secondary capitalize"
-              value={form.name}
-              handleChange={handleChange}
+      <PageTransition>
+        <Layout>
+          <div className="main">
+            <Heading
+              title="Create Account"
+              subtitle="To contribute to the community, sign up first!"
             />
 
-            {/* Email Input */}
-            <Input
-              id="email"
-              label="E-mail Address"
-              type="email"
-              placeholder="Enter your e-mail address..."
-              bg_color="bg-secondary"
-              value={form.email}
-              handleChange={handleChange}
-            />
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4 w-full md:w-[480px] mx-auto my-6"
+            >
+              {/* Tech Name Input */}
+              <Input
+                id="name"
+                label="Tech Name"
+                type="text"
+                placeholder="Enter your tech name..."
+                bg_color="bg-secondary capitalize"
+                value={form.name}
+                handleChange={handleChange}
+              />
 
-            {/* Gender Select */}
-            <Select
-              id="gender"
-              label="Select Gender"
-              options={gender}
-              bg_color="bg-secondary"
-              value={form.gender}
-              handleChange={handleChange}
-            />
+              {/* Email Input */}
+              <Input
+                id="email"
+                label="E-mail Address"
+                type="email"
+                placeholder="Enter your e-mail address..."
+                bg_color="bg-secondary"
+                value={form.email}
+                handleChange={handleChange}
+              />
 
-            {/* Role Select */}
-            <Select
-              id="role"
-              label="Select Your Niche"
-              options={role}
-              bg_color="bg-secondary"
-              value={form.role}
-              handleChange={handleChange}
-            />
+              {/* Gender Select */}
+              <Select
+                id="gender"
+                label="Select Gender"
+                options={gender}
+                bg_color="bg-secondary"
+                value={form.gender}
+                handleChange={handleChange}
+              />
 
-            {/* Password Input */}
-            <Input
-              id="password"
-              label="Password"
-              type="password"
-              placeholder="> 7 characters"
-              bg_color="bg-secondary"
-              value={form.password}
-              handleChange={handleChange}
-            />
+              {/* Role Select */}
+              <Select
+                id="role"
+                label="Select Your Niche"
+                options={role}
+                bg_color="bg-secondary"
+                value={form.role}
+                handleChange={handleChange}
+              />
 
-            {/* Submit Button */}
-            <button type="submit" className="btn-primary h-10 rounded-lg">
-              Register
-            </button>
+              {/* Password Input */}
+              <Input
+                id="password"
+                label="Password"
+                type="password"
+                placeholder="> 7 characters"
+                bg_color="bg-secondary"
+                value={form.password}
+                handleChange={handleChange}
+              />
 
-            {/* Link to login page */}
-            <p className="text-sm text-center font-medium text-sub">
-              Already have an account?{" "}
-              <Link to="/login" className="text-main font-semibold">
-                Login
-              </Link>
-            </p>
-          </form>
-        </div>
-      </Layout>
+              {/* Submit Button */}
+              <button type="submit" className="btn-primary h-10 rounded-lg">
+                Register
+              </button>
+
+              {/* Link to login page */}
+              <p className="text-sm text-center font-medium text-sub">
+                Already have an account?{" "}
+                <Link to="/login" className="text-main font-semibold">
+                  Login
+                </Link>
+              </p>
+            </form>
+          </div>
+        </Layout>
+      </PageTransition>
     </>
   );
 };

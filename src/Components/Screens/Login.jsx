@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import Modal from "../UI/Modal";
 import Icon from "../UI/Icon";
+import PageTransition from "../UI/PageTransition";
 
 
 const Login = () => {
@@ -54,6 +55,8 @@ const navigate = useNavigate()
 
   return (
     <>
+      <PageTransition>
+
       <Layout>
         <div className="main">
           <Heading
@@ -115,7 +118,9 @@ const navigate = useNavigate()
             </Link>
           </div>
         </Modal>
-      )}
+        )}
+      </PageTransition>
+        
     </>
   );
 };

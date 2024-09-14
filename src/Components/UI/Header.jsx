@@ -60,7 +60,7 @@ const Header = () => {
               onClick={toggleMenu}
               className="flex-center bg-lighter cursor-default h-11 w-11 rounded-full"
             >
-              <Icon>menu</Icon>
+              <Icon>drag_handle</Icon>
             </div>
           </div>
         </nav>

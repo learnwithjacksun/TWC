@@ -67,10 +67,9 @@ const useProject = () => {
         };
         getProjects()
         fetchUserProjects();
-    }, [user?.$id])
+    }, [user?.$id, userProjects])
 
     const deleteUserProject = async (projectid) => {
-        console.log("clicked");
         try {
             await databases.deleteDocument("twcdb", "projects", projectid);
             getProjects()

@@ -1,28 +1,41 @@
-import { Route, Routes } from "react-router-dom";
-import { Home, Login, Notfound, Preview, Profile, Projects, Register, Upload } from "./Components/Screens";
+import { Route, Routes, useLocation } from "react-router-dom";
+import {
+  Home,
+  Login,
+  Notfound,
+  Preview,
+  Profile,
+  Projects,
+  Register,
+  Upload,
+} from "./Components/Screens";
 import MenuProvider from "./Contexts/MenuProvider";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./Contexts/AuthProvider";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
+  const location = useLocation();
   return (
     <>
       <Toaster />
       <AuthProvider>
         <MenuProvider>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Notfound />} />
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/upload" element={<Upload />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:id" element={<Preview />} />
-            </Route>
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes key={location.pathname} location={location}>
+              <Route index element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Notfound />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/upload" element={<Upload />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:id" element={<Preview />} />
+              </Route>
+            </Routes>
+          </AnimatePresence>
         </MenuProvider>
       </AuthProvider>
     </>

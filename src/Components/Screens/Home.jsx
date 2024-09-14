@@ -1,16 +1,19 @@
-import Hero from "../UI/Hero"
-import Layout from "../UI/Layout"
-import RecentProjects from "../UI/RecentProjects"
+import Hero from "../UI/Hero";
+import Layout from "../UI/Layout";
+import PageTransition from "../UI/PageTransition";
+import RecentProjects from "../UI/RecentProjects";
 
 const Home = () => {
   return (
     <>
-      <Layout>
-        <Hero />
-        <RecentProjects/>
-    </Layout>
+      <PageTransition>
+        <Layout>
+          <Hero />
+          <RecentProjects />
+        </Layout>
+      </PageTransition>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

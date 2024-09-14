@@ -49,7 +49,7 @@ body{
 }
 
 .btn{
-  @apply font-semibold text-sm flex-center gap-2 active:brightness-90 duration-200
+  @apply font-bold text-sm flex-center gap-2 active:brightness-90 duration-200
 }
 
 .btn-primary{

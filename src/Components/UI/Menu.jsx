@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
-// import toast from "react-hot-toast";
 import Prop from 'prop-types'
 import { navlinks } from "../../Constants/data";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
-
+import { motion } from "framer-motion";
 
 const Menu = ({ toggleMenu }) => {
     
@@ -24,16 +23,37 @@ const Menu = ({ toggleMenu }) => {
             }
         )
         toggleMenu()
-    }
+  }
+  const menuVars = {
+    initial: {
+      scaleX:0,
+      opacity: 0,
+    },
+    animate: {
+      scaleX: 1,
+      opacity: 1,
+    },
+    exit: {
+      scaleX: 0,
+      opacity: 0,
+    },
+  };
+  
 
   return (
     <>
-      <div className="fixed inset-0 flex justify-end">
+      <motion.div className="fixed inset-0 flex justify-end">
         <div
           onClick={toggleMenu}
           className="absolute inset-0 bg-[rgba(0,0,0,0.5)] -z-10"
         ></div>
-        <div className="z-10 bg-light min-h-screen w-[70%] md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line">
+        <motion.div
+          style={{ transformOrigin: "right" }}
+          variants={menuVars}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="z-10 bg-light min-h-screen w-[70%] md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line">
           <div className="flex justify-end">
             <div
               onClick={toggleMenu}
@@ -89,8 +109,8 @@ const Menu = ({ toggleMenu }) => {
               </button>
             )}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };
