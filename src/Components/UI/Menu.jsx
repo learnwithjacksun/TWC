@@ -33,7 +33,7 @@ const Menu = ({ toggleMenu }) => {
           onClick={toggleMenu}
           className="absolute inset-0 bg-[rgba(0,0,0,0.5)] -z-10"
         ></div>
-        <div className="z-10 bg-light min-h-screen w-[70%] md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line">
+        <div className="z-10 bg-light min-h-screen w-[70%] z-20 md:w-[30%] rounded-tl-[2em] rounded-bl-[2em] p-4 flex flex-col gap-4 border-l border-line">
           <div className="flex justify-end">
             <div
               onClick={toggleMenu}
