@@ -9,6 +9,7 @@ const useProject = () => {
     const { user, data } = useAuth()
     const [projects, setProjects] = useState([]);
     const [userProjects, setUserProjects] = useState([]);
+    const [leaderboard, setLeaderboard] = useState([]);
     const navigate = useNavigate()
 
     const uploadProject = async (title, description, link, tools, image) => {
@@ -39,12 +40,29 @@ const useProject = () => {
 
     const getProjects = async () => {
         try {
-            const res = await databases.listDocuments(
-                "twcdb",
-                "projects",
-            )
-            console.log(res);
-            setProjects(res.documents.reverse())
+            const usersRes = await databases.listDocuments("twcdb", "users");
+
+            const projectsRes = await databases.listDocuments("twcdb", "projects");
+
+            setProjects(projectsRes.documents.reverse());
+
+            const userProjectCount = usersRes.documents.reduce((acc, user) => {
+                acc[user.$id] = { count: 0, name: user.name, role: user.role };
+                return acc;
+            }, {});
+
+            projectsRes.documents.forEach((project) => {
+                const userid = project.userid;
+                if (userProjectCount[userid]) {
+                    userProjectCount[userid].count += 1;
+                }
+            });
+
+            const sortedLeaderboard = Object.entries(userProjectCount)
+                .map(([userid, { count, name, role }]) => ({ userid, count, name, role }))
+                .sort((a, b) => b.count - a.count);
+
+            setLeaderboard(sortedLeaderboard);
         } catch (error) {
             console.log("Get Projects:", error);
         }
@@ -78,12 +96,12 @@ const useProject = () => {
             console.log("Delete User Project:", error);
         }
     };
-    
 
 
 
 
-    return { uploadProject, projects, userProjects, deleteUserProject }
+
+    return { uploadProject, projects, userProjects, deleteUserProject, leaderboard }
 }
 
 export default useProject

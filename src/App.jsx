@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import {
   Chatroom,
   Home,
+  Leaderboard,
   Login,
   Notfound,
   Preview,
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/chatroom" element={<Chatroom />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="*" element={<Notfound />} />
               <Route element={<ProtectedRoutes />}>
                 <Route path="/profile" element={<Profile />} />
