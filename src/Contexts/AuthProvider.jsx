@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
       navigate("/profile");
     } catch (error) {
       console.log("Register User", error);
+      throw new Error(error.message);
     }
   };
 
@@ -37,6 +38,7 @@ const AuthProvider = ({ children }) => {
       navigate("/profile");
     } catch (error) {
       console.log("Login User", error);
+      throw new Error(error.message);
     }
   };
 
@@ -47,6 +49,7 @@ const AuthProvider = ({ children }) => {
         navigate("/login");
     } catch (error) {
       console.log("Logout User", error);
+      throw new Error(error.message);
     }
   };
 
@@ -61,6 +64,7 @@ const AuthProvider = ({ children }) => {
       console.log(res);
     } catch (error) {
       console.log("Add User Data", error);
+      throw new Error(error.message);
     }
   };
 
@@ -90,7 +94,7 @@ const AuthProvider = ({ children }) => {
   }, []);
   return (
     <>
-      <AuthContext.Provider value={{ register, login, logout, data, user }}>
+      <AuthContext.Provider value={{ register, login, logout, data, user, getUserData }}>
         {children}
       </AuthContext.Provider>
     </>

@@ -54,6 +54,7 @@ const useChats = () => {
             getMessages()
         } catch (error) {
             console.log("Delete Message:", error);
+            throw new Error(error.message);
         }
     }
 

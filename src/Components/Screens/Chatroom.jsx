@@ -50,6 +50,8 @@ const Chatroom = () => {
               <div className="my-8 flex flex-col gap-4 md:gap-10">
                 {chats?.map((chat) => (
                   <div
+                     data-aos="zoom-in-up"
+                      data-aos-delay="200"
                     key={chat.userid}
                     className={`${
                       user?.$id === chat.userid

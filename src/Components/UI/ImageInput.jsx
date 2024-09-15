@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 const ImageInput = ({ handleImageChange, children }) => {
   return (
     <>
-      <div>
+      <div
+       data-aos="zoom-in-up"
+       data-aos-delay="200" 
+      >
         <label htmlFor="image">{children}</label>
         <input
           type="file"

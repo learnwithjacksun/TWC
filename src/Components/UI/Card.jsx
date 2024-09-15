@@ -23,7 +23,10 @@ const Card = ({
 
 
   return (
-    <div className="relative border border-line shadow-lg rounded-2xl overflow-hidden">
+    <div
+     data-aos="zoom-in-up"
+                      data-aos-delay="200"
+      className="relative border border-line shadow-lg rounded-2xl overflow-hidden">
       {user?.$id === userid && (
         <div
           onClick={()=> handleDelete(id, image)} 

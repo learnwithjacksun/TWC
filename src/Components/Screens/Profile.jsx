@@ -6,7 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import TextArea from "../UI/TextArea";
-import { databases } from "../../Lib/appwriteConfig";
+import { databases, storage } from "../../Lib/appwriteConfig";
 import ImageInput from "../UI/ImageInput";
 import Modal from "../UI/Modal";
 import Grid from "../UI/Grid";
@@ -16,7 +16,7 @@ import { AnimatePresence } from "framer-motion";
 import PageTransition from "../UI/PageTransition";
 
 const Profile = () => {
-  const { user, data } = useAuth();
+  const { user, data, uploadProfilePic } = useAuth();
   const { userProjects, deleteUserProject } = useProject();
 
   const [modal, setModal] = useState(false);
@@ -52,7 +52,29 @@ const Profile = () => {
     data.bio = bio;
   };
 
- 
+  const updateProfileImage = async () => {
+    if (!image) {
+      toast.error("No image selected.");
+      return;
+    }
+
+    toast.promise(
+      uploadProfilePic(image),
+      {
+        loading: "Uploading image...",
+        success: "Profile image updated successfully!",
+        error: "Failed to update profile image.",
+      }
+    );
+
+    setImage(null);
+    toggleModal();
+
+  };
+
+  const imageUrl = storage.getFileView("images", data?.image);
+
+
   return (
     <>
       <PageTransition>
@@ -63,16 +85,20 @@ const Profile = () => {
             <div className="layout">
               {/* Profile Card */}
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 my-8">
-                <div className="h-32 w-32 overflow-hidden rounded-full p-2 bg-blue-400 shadow-lg">
+                <div
+                 data-aos="zoom-in-up"
+                 data-aos-delay="200" 
+                  className="h-32 w-32 overflow-hidden rounded-full bg-blue-400 shadow-lg">
                   <img
-                    src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
-                      data && data?.name
-                    }`}
+                    src={`${data?.image? imageUrl: `https://api.dicebear.com/9.x/adventurer/svg?seed=${data?.name}`}`}
                     alt="Avatar"
-                    className="w-full object-cover rounded-full"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <div className="flex text-center md:text-left flex-col">
+                <div
+                 data-aos="fade-left"
+                 data-aos-delay="200" 
+                  className="flex text-center md:text-left flex-col">
                   <p className="font-semibold font-sora">
                     {user?.name || "No Name yet"}
                   </p>
@@ -90,7 +116,10 @@ const Profile = () => {
 
               {/* Bio */}
 
-              <div className="border bg-light border-line text-sub rounded-lg p-2">
+              <div
+               data-aos="fade-right"
+               data-aos-delay="200" 
+                className="border bg-light border-line text-sub rounded-lg p-2">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-medium text-sm font-sora">About Me:</h3>
                   <button
@@ -153,7 +182,7 @@ const Profile = () => {
                           Profile Image
                         </div>
                         {image?.name && (
-                          <div className="font-semibold text-sm bg-lighter px-6 py-2 rounded-full border border-line mt-2">
+                          <div className="font-semibold text-sm bg-light px-6 py-2 rounded-full border border-line mt-2">
                             {image?.name}
                           </div>
                         )}
@@ -161,7 +190,7 @@ const Profile = () => {
                     </div>
                   </ImageInput>
                   <div className="flex justify-end">
-                    <button className="btn-primary mt-2 px-2 h-10 rounded">
+                    <button onClick={updateProfileImage} className="btn-primary mt-2 px-2 h-10 rounded">
                       Update Profile Image
                     </button>
                   </div>

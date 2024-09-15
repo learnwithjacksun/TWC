@@ -19,7 +19,10 @@ const Input= ({
 
   return (
     <>
-      <div className="flex flex-col gap-1">
+      <div
+ data-aos="zoom-in-up"
+ data-aos-delay="200"      
+        className="flex flex-col gap-1">
        {label && ( <label htmlFor={id} className="font-sora font-medium text-sm pl-1">
           {label}:
         </label>)}

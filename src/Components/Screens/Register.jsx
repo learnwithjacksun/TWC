@@ -65,7 +65,7 @@ const Register = () => {
           loading: "Creating User...",
           success: "Account Created!",
           error: (err) => {
-            return `Failed: ${err.message}`;
+            return `${err}`;
           },
         }
       );

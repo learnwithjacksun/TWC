@@ -103,7 +103,7 @@ const Upload = () => {
                   label="Project Link"
                   type="text"
                   placeholder="Live link or project location url"
-                  bg_color="bg-secondary"
+                  bg_color="bg-secondary lowercase"
                   value={link}
                   handleChange={(e) => setLink(e.target.value)}
                 />

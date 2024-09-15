@@ -16,9 +16,16 @@ import { Toaster } from "react-hot-toast";
 import AuthProvider from "./Contexts/AuthProvider";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import { AnimatePresence } from "framer-motion";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 
 const App = () => {
   const location = useLocation();
+  useEffect(() => {
+    Aos.init();
+  }, []);
   return (
     <>
       <Toaster />

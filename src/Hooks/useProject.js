@@ -3,6 +3,7 @@ import { databases, storage } from "../Lib/appwriteConfig";
 import useAuth from "./useAuth";
 import { ID, Query } from "appwrite";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const useProject = () => {
@@ -35,6 +36,7 @@ const useProject = () => {
             navigate("/projects")
         } catch (error) {
             console.log("Upload Project:", error);
+            throw new Error(error.message);
         }
     }
 
@@ -47,7 +49,7 @@ const useProject = () => {
             setProjects(projectsRes.documents.reverse());
 
             const userProjectCount = usersRes.documents.reduce((acc, user) => {
-                acc[user.$id] = { count: 0, name: user.name, role: user.role };
+                acc[user.$id] = { count: 0, name: user.name, role: user.role, image: user.image };
                 return acc;
             }, {});
 
@@ -59,7 +61,7 @@ const useProject = () => {
             });
 
             const sortedLeaderboard = Object.entries(userProjectCount)
-                .map(([userid, { count, name, role }]) => ({ userid, count, name, role }))
+                .map(([userid, { count, name, role, image }]) => ({ userid, count, name, role, image }))
                 .sort((a, b) => b.count - a.count);
 
             setLeaderboard(sortedLeaderboard);
@@ -92,8 +94,11 @@ const useProject = () => {
             await databases.deleteDocument("twcdb", "projects", projectid);
             await storage.deleteFile("images", imageid)
             getProjects()
+            toast.success("Project deleted!")
         } catch (error) {
             console.log("Delete User Project:", error);
+            toast.error(error.message)
+            throw new Error(error.message);
         }
     };
 

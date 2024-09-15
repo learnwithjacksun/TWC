@@ -4,6 +4,8 @@ import Brand from "./Brand";
 import useMenu from "../../Hooks/useMenu";
 import useAuth from "../../Hooks/useAuth";
 import useTheme from "../../Hooks/useTheme";
+import { storage } from "../../Lib/appwriteConfig";
+
 const Header = () => {
   const { toggleMenu } = useMenu();
 
@@ -16,6 +18,9 @@ const Header = () => {
 
   const { user, data } = useAuth();
   const { darkMode, toggleDarkMode } = useTheme();
+
+  const imageUrl = data?.image? storage.getFileView("images", data?.image): null;
+
   return (
     <>
       <header className="line">
@@ -45,13 +50,18 @@ const Header = () => {
             )}
 
             {user && (
-              <Link to="/profile" className="h-10 w-10 rounded-full bg-blue-400 overflow-hidden">
+              <Link
+                to="/profile"
+                className="h-10 w-10 rounded-full bg-blue-400 overflow-hidden"
+              >
                 <img
-                  src={`https://api.dicebear.com/9.x/adventurer/svg?seed=${
-                    data && data?.name
+                  src={`${
+                    data?.image
+                      ? imageUrl
+                      : `https://api.dicebear.com/9.x/adventurer/svg?seed=${data?.name}`
                   }`}
                   alt="Avatar"
-                  className="w-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </Link>
             )}

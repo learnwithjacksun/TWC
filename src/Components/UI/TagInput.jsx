@@ -23,11 +23,15 @@ const TagInput= ({ tools, setTools }) => {
   };
 
   return (
-    <div>
+    <div
+    data-aos="zoom-in-up"
+    data-aos-delay="200" 
+    >
       <label htmlFor="tools" className="font-sora font-medium text-sm pl-1">Tools Used:</label>
       <div className="flex flex-wrap gap-1 bg-secondary items-center border border-line p-2 py-[.6em] rounded-lg">
         {tools.map((tool, index) => (
           <div
+             data-aos="fade-left"
             key={index}
             className="flex items-center gap-1 shadow-lg bg-light border border-line p-1 px-2 pr-1 rounded-full"
           >
