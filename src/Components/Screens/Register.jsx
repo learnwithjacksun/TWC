@@ -15,6 +15,7 @@ const Register = () => {
     { value: "graphics designer", label: "Graphics Designer" },
     { value: "ui designer", label: "UI Designer" },
     { value: "ux writer", label: "UX Writer" },
+    { value: "3d designer", label: "3D Designer" },
     { value: "copywriter", label: "Copy Writer" },
     { value: "others", label: "Others" },
   ];

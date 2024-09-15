@@ -5,7 +5,7 @@ const Footer = () => {
         <p className="text-center font-medium text-sub text-sm">
           Created with 😒 by{" "}
           <a
-            href="https://github.com/learnwithjacksun/TechWatch"
+            href="https://github.com/learnwithjacksun/TWC"
             target="_blank"
             className="text-main"
           >
