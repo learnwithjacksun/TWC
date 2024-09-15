@@ -69,9 +69,10 @@ const useProject = () => {
         fetchUserProjects();
     }, [user?.$id, projects])
 
-    const deleteUserProject = async (projectid) => {
+    const deleteUserProject = async (projectid, imageid) => {
         try {
             await databases.deleteDocument("twcdb", "projects", projectid);
+            await storage.deleteFile("images", imageid)
             getProjects()
         } catch (error) {
             console.log("Delete User Project:", error);

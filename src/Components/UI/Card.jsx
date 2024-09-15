@@ -26,7 +26,7 @@ const Card = ({
     <div className="relative border border-line shadow-lg rounded-2xl overflow-hidden">
       {user?.$id === userid && (
         <div
-          onClick={()=> handleDelete(id)} 
+          onClick={()=> handleDelete(id, image)} 
           className="absolute cursor-pointer bg-red-600 text-white right-2 top-2 h-9 w-9 flex-center rounded-lg"
         >
           <Icon styles="text-[1.3em]">delete</Icon>

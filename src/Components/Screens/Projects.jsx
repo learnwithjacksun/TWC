@@ -44,7 +44,7 @@ const Projects = () => {
                 key={project.$id}
                 {...project}
                 date={project.$createdAt}
-                handleDelete={() => deleteUserProject(project.$id)}
+                handleDelete={() => deleteUserProject(project.$id, project.image)}
                 userid={project.userid}
               />
             ))}

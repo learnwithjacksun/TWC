@@ -132,7 +132,7 @@ const Profile = () => {
                     key={userProject.$id}
                     {...userProject}
                     date={userProject.$createdAt}
-                    handleDelete={() => deleteUserProject(userProject.$id)}
+                    handleDelete={() => deleteUserProject(userProject.$id, userProject.image)}
                   />
                 ))}
               </Grid>
