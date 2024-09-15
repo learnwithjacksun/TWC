@@ -9,7 +9,7 @@ const Leaderboard = () => {
   return (
     <Layout>
       <div className="main">
-        <Heading title="Leaderboard" subtitle="Top developers by number of projects" />
+        <Heading title="Leaderboard" subtitle="Top techies by number of projects" />
         <div className="my-8">
           <ul className="flex flex-col gap-4">
             {leaderboard.map((user) => (
