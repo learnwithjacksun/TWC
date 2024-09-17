@@ -1,9 +1,8 @@
-import {  useState } from "react";
+import { useState } from "react";
 import Icon from "./Icon";
-import Props from 'prop-types'
+import Props from "prop-types";
 
-
-const Input= ({
+const Input = ({
   label,
   id,
   type,
@@ -19,13 +18,12 @@ const Input= ({
 
   return (
     <>
-      <div
- data-aos="zoom-in-up"
- data-aos-delay="200"      
-        className="flex flex-col gap-1">
-       {label && ( <label htmlFor={id} className="font-sora font-medium text-sm pl-1">
-          {label}:
-        </label>)}
+      <div className="flex flex-col gap-1">
+        {label && (
+          <label htmlFor={id} className="font-sora font-medium text-sm pl-1">
+            {label}:
+          </label>
+        )}
         <div className="flex items-center gap-2">
           <input
             type={isPasswordVisible ? "text" : type}
@@ -55,13 +53,13 @@ const Input= ({
 };
 
 Input.propTypes = {
-    label: Props.string,
-    id: Props.string,
-    type:Props.string,
-    placeholder:Props.string,
-    value:Props.string,
-    handleChange:Props.func,
-    bg_color: Props.string,
-}
+  label: Props.string,
+  id: Props.string,
+  type: Props.string,
+  placeholder: Props.string,
+  value: Props.string,
+  handleChange: Props.func,
+  bg_color: Props.string,
+};
 
 export default Input;
