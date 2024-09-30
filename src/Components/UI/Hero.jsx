@@ -8,12 +8,12 @@ const Hero = () => {
         <div className="layout line pb-8 md:min-h-[400px] flex-center">
           <div className="flex flex-col gap-6 items-center">
             <div className="text-center">
-              <span className="bg-secondary text-sub py-1 px-4 rounded-full text-sm font-semibold">
-                60 days of Tech 🚀
+              <span className="bg-secondary border border-line text-sub py-1 px-4 rounded-full text-sm font-semibold">
+                30 days of Tech 🚀
               </span>
               <h1 className="text-5xl md:text-6xl font-sora font-extrabold mt-4">
-                Tech Watch{" "}
-                <span className="font-sora gradient-text">Community</span>
+                Design{" "}
+                <span className="font-sora gradient-text">Buddies</span>
               </h1>
               <p className="text-sm mt-4 text-sub">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
@@ -23,13 +23,12 @@ const Hero = () => {
             </div>
 
             <div className="flex-center flex-col-reverse md:flex-row gap-4">
-              <Link
-                to=""
+              <a href="https://chat.whatsapp.com/G73jPqVjxGf2rWDoTOgusN" target="_blank"
                 className="btn bg-lighter px-8 h-12 w-[250px] md:w-auto rounded-full"
               >
                 <i className="fa-brands fa-whatsapp text-xl"></i>
                 <span>WhatsApp</span>
-              </Link>
+              </a>
 
               <Link
                 to="/upload"
