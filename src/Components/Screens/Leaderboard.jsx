@@ -1,12 +1,14 @@
-// import { Link } from "react-router-dom";
 import Heading from "../UI/Heading";
 import Layout from "../UI/Layout";
 import useProject from "../../Hooks/useProject";
 import { storage } from "../../Lib/appwriteConfig";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import useTheme from "../../Hooks/useTheme";
 
 const Leaderboard = () => {
-  const { leaderboard } = useProject();
-
+  const { darkMode } = useTheme();
+  const { leaderboard, loading } = useProject();
 
   return (
     <Layout>
@@ -14,9 +16,26 @@ const Leaderboard = () => {
         <Heading title="Leaderboard" subtitle="Top techies by number of projects" />
         <div className="my-8 layout">
           <ul className="flex flex-col gap-4">
+          {loading && (
+                  <>
+                    {Array(6)
+                      .fill()
+                      .map((_, idx) => (
+                        <Skeleton
+                          key={idx}
+                          baseColor={darkMode ? "#303030" : "#fefefe"}
+                          highlightColor={darkMode ? "#444" : "#fff"}
+                          style={{
+                            minHeight: "70px",
+                            borderRadius: "16px",
+                          }}
+                        />
+                      ))}
+                  </>
+                )}
             {leaderboard.map((user) => (
               <li
-               data-aos="fade-right"
+               data-aos="fade-up"
                       data-aos-delay="200"
                 key={user.userid} className="flex items-center bg-lighter p-2 rounded-xl">
                 <div className="flex-1 flex items-center gap-2">

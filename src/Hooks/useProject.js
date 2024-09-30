@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { databases, storage } from "../Lib/appwriteConfig";
 import useAuth from "./useAuth";
 import { ID, Query } from "appwrite";
@@ -11,6 +11,7 @@ const useProject = () => {
     const [projects, setProjects] = useState([]);
     const [userProjects, setUserProjects] = useState([]);
     const [leaderboard, setLeaderboard] = useState([]);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const uploadProject = async (title, description, link, tools, image) => {
@@ -40,7 +41,8 @@ const useProject = () => {
         }
     }
 
-    const getProjects = async () => {
+    const getProjects = useCallback(async () => {
+        setLoading(true)
         try {
             const usersRes = await databases.listDocuments("twcdb", "users");
 
@@ -68,26 +70,33 @@ const useProject = () => {
         } catch (error) {
             console.log("Get Projects:", error);
         }
-    }
+        finally {
+            setLoading(false)
+        }
+    },[])
 
-    useEffect(() => {
-        const fetchUserProjects = async () => {
-            try {
-                const res = await databases.listDocuments(
-                    "twcdb",
-                    "projects",
-                    [
-                        Query.equal('userid', user.$id)
-                    ]
-                );
-                setUserProjects(res.documents);
-            } catch (error) {
-                console.error("Error fetching user projects:", error);
-            }
-        };
+    const fetchUserProjects = useCallback(async () => {
+        setLoading(true)
+        try {
+            const res = await databases.listDocuments(
+                "twcdb",
+                "projects",
+                [
+                    Query.equal('userid', user.$id)
+                ]
+            );
+            setUserProjects(res.documents);
+        } catch (error) {
+            console.error("Error fetching user projects:", error);
+        } finally {
+            setLoading(false)
+        }
+    }, [user?.$id])
+
+    useEffect(() => { 
         getProjects()
-        fetchUserProjects();
-    }, [user?.$id, projects])
+       fetchUserProjects()
+    }, [fetchUserProjects, getProjects])
 
     const deleteUserProject = async (projectid, imageid) => {
         try {
@@ -106,7 +115,7 @@ const useProject = () => {
 
 
 
-    return { uploadProject, projects, userProjects, deleteUserProject, leaderboard }
+    return {loading, uploadProject, projects, userProjects, deleteUserProject, leaderboard }
 }
 
 export default useProject

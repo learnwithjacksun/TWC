@@ -1,38 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import Heading from "../UI/Heading";
 import Layout from "../UI/Layout";
-import useProject from "../../Hooks/useProject";
-import { useEffect, useState } from "react";
 import { storage } from "../../Lib/appwriteConfig";
 import Icon from "../UI/Icon";
 import { formatDate } from "../../Utils/dateFormat";
 import PageTransition from "../UI/PageTransition";
 
 const Preview = () => {
-  const { id } = useParams();
-  const { projects } = useProject();
-  const [project, setProject] = useState(null);
+  const location = useLocation()
+  const {project} = location.state || ""
 
-  useEffect(() => {
-    if (projects) {
-      const foundProject = projects.find((project) => project.userid === id);
-      setProject(foundProject);
-    }
-  }, [projects, id]);
 
-  if (!projects) {
-    return (
-      <>
-        <Layout>
-          <div className="main">Fetching project...</div>;
-        </Layout>
-      </>
-    );
-  }
-
-  if (!project) {
-    return <div>Project not found!</div>;
-  }
 
   return (
     <>
@@ -61,7 +39,7 @@ const Preview = () => {
                   <p className="text-sub text-sm font-medium">
                     By {project?.name}{" "}
                     <span className="text-xs font-semibold bg-green-500/10 border-green-500  border px-2 rounded-full text-green-500 inline-flex">
-                      Developer
+                      {project?.role}
                     </span>
                   </p>
                   <p className="text-sm">{formatDate(project?.$createdAt)}</p>

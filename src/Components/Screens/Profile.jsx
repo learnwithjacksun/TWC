@@ -14,10 +14,14 @@ import useProject from "../../Hooks/useProject";
 import Card from "../UI/Card";
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "../UI/PageTransition";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import useTheme from "../../Hooks/useTheme";
 
 const Profile = () => {
+  const { darkMode } = useTheme();
   const { user, data, uploadProfilePic } = useAuth();
-  const { userProjects, deleteUserProject } = useProject();
+  const { userProjects, deleteUserProject, loading } = useProject();
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal((prev) => !prev);
@@ -58,22 +62,17 @@ const Profile = () => {
       return;
     }
 
-    toast.promise(
-      uploadProfilePic(image),
-      {
-        loading: "Uploading image...",
-        success: "Profile image updated successfully!",
-        error: "Failed to update profile image.",
-      }
-    );
+    toast.promise(uploadProfilePic(image), {
+      loading: "Uploading image...",
+      success: "Profile image updated successfully!",
+      error: "Failed to update profile image.",
+    });
 
     setImage(null);
     toggleModal();
-
   };
 
   const imageUrl = storage.getFileView("images", data?.image);
-
 
   return (
     <>
@@ -86,19 +85,25 @@ const Profile = () => {
               {/* Profile Card */}
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 my-8">
                 <div
-                 data-aos="zoom-in-up"
-                 data-aos-delay="200" 
-                  className="h-32 w-32 overflow-hidden rounded-full bg-blue-400 shadow-lg">
+                  data-aos="zoom-in-up"
+                  data-aos-delay="200"
+                  className="h-32 w-32 overflow-hidden rounded-full bg-blue-400 shadow-lg"
+                >
                   <img
-                    src={`${data?.image? imageUrl: `https://api.dicebear.com/9.x/adventurer/svg?seed=${data?.name}`}`}
+                    src={`${
+                      data?.image
+                        ? imageUrl
+                        : `https://api.dicebear.com/9.x/adventurer/svg?seed=${data?.name}`
+                    }`}
                     alt="Avatar"
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div
-                 data-aos="fade-left"
-                 data-aos-delay="200" 
-                  className="flex text-center md:text-left flex-col">
+                  data-aos="fade-left"
+                  data-aos-delay="200"
+                  className="flex text-center md:text-left flex-col"
+                >
                   <p className="font-semibold font-sora">
                     {user?.name || "No Name yet"}
                   </p>
@@ -117,9 +122,10 @@ const Profile = () => {
               {/* Bio */}
 
               <div
-               data-aos="fade-right"
-               data-aos-delay="200" 
-                className="border bg-light border-line text-sub rounded-lg p-2">
+                data-aos="fade-right"
+                data-aos-delay="200"
+                className="border bg-light border-line text-sub rounded-lg p-2"
+              >
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-medium text-sm font-sora">About Me:</h3>
                   <button
@@ -147,7 +153,7 @@ const Profile = () => {
                 </Link>
               </div>
 
-              {userProjects.length === 0 && (
+              {loading === false && userProjects.length === 0 && (
                 <div className="text-center text-sub mt-8">
                   <Icon styles="text-[3em]">hourglass_disabled</Icon>
                   <p className="text-sub text-sm">
@@ -156,12 +162,31 @@ const Profile = () => {
                 </div>
               )}
               <Grid>
+                {loading && (
+                  <>
+                    {Array(3)
+                      .fill()
+                      .map((_, idx) => (
+                        <Skeleton
+                          key={idx}
+                          baseColor={darkMode ? "#303030" : "#fefefe"}
+                          highlightColor={darkMode ? "#444" : "#fff"}
+                          style={{
+                            minHeight: "280px",
+                            borderRadius: "16px",
+                          }}
+                        />
+                      ))}
+                  </>
+                )}
                 {userProjects.map((userProject) => (
                   <Card
                     key={userProject.$id}
                     {...userProject}
                     date={userProject.$createdAt}
-                    handleDelete={() => deleteUserProject(userProject.$id, userProject.image)}
+                    handleDelete={() =>
+                      deleteUserProject(userProject.$id, userProject.image)
+                    }
                   />
                 ))}
               </Grid>
@@ -190,7 +215,10 @@ const Profile = () => {
                     </div>
                   </ImageInput>
                   <div className="flex justify-end">
-                    <button onClick={updateProfileImage} className="btn-primary mt-2 px-2 h-10 rounded">
+                    <button
+                      onClick={updateProfileImage}
+                      className="btn-primary mt-2 px-2 h-10 rounded"
+                    >
                       Update Profile Image
                     </button>
                   </div>

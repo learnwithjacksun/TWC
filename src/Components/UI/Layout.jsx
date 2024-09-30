@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import useMenu from "../../Hooks/useMenu";
 import { AnimatePresence } from "framer-motion";
 
+
 const Layout = ({ children }) => {
   const { menu, toggleMenu } = useMenu();
   return (

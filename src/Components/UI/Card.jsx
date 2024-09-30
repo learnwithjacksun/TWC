@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { storage } from "../../Lib/appwriteConfig";
-import { Link } from "react-router-dom";
 import { formatDate } from "../../Utils/dateFormat";
 import Icon from "./Icon";
 import useAuth from "../../Hooks/useAuth";
@@ -15,21 +14,21 @@ const Card = ({
   image,
   date,
   handleDelete,
-  userid 
+  userid,
+  previewProject,
 }) => {
   const imageUrl = storage.getFileView("images", image);
   const { user } = useAuth();
 
-
-
   return (
     <div
-     data-aos="zoom-in-up"
+   data-aos="fade-up"
                       data-aos-delay="200"
-      className="relative border border-line shadow-lg rounded-2xl overflow-hidden">
+      className="relative border border-line shadow-lg rounded-2xl overflow-hidden"
+    >
       {user?.$id === userid && (
         <div
-          onClick={()=> handleDelete(id, image)} 
+          onClick={() => handleDelete(id, image)}
           className="absolute cursor-pointer bg-red-600 text-white right-2 top-2 h-9 w-9 flex-center rounded-lg"
         >
           <Icon styles="text-[1.3em]">delete</Icon>
@@ -60,13 +59,13 @@ const Card = ({
             </p>
             <p className="text-xs text-sub">{formatDate(date)}</p>
           </div>
-          <Link
-            to={`/projects/${userid}`}
+          <button
+            onClick={previewProject}
             className="btn-primary px-6 rounded-lg"
           >
             <span>Preview</span>
             <Icon styles="text-[1.3em]">open_in_new</Icon>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
@@ -83,7 +82,9 @@ Card.propTypes = {
   image: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  userid: PropTypes.string.isRequired 
+  userid: PropTypes.string.isRequired,
+  previewProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired
 };
 
 export default Card;
