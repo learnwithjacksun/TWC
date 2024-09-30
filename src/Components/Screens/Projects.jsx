@@ -51,7 +51,7 @@ const Projects = () => {
                   .map((_, idx) => (
                     <Skeleton
                       key={idx}
-                      baseColor={darkMode ? "#303030" : "#fefefe"}
+                      baseColor={darkMode ? "#303030" : "#eee"}
                       highlightColor={darkMode ? "#444" : "#fff"}
                       style={{
                         minHeight: "280px",
