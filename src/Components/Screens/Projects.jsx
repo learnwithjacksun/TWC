@@ -36,7 +36,7 @@ const Projects = () => {
             </Link>
           </div>
 
-          {!loading && projects?.length === 0 && (
+          {loading === false && projects?.length === 0 && (
             <div className="text-center text-sub mt-10">
               <Icon styles="text-[3em]">hourglass_disabled</Icon>
               <p className="text-sub text-sm">There are no projects yet!</p>
